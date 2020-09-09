@@ -81,3 +81,9 @@ class LinkedList:
             self.head = self.head.get_next()
             # return the old head's value
             return val
+
+a = LinkedList()
+a.add_to_tail(5)
+a.add_to_tail(10)
+a.add_to_tail(25)
+a.add_to_tail(1)

@@ -11,10 +11,52 @@ This part of the project comprises two days:
 """
 
 import sys 
-sys.path.append('../stack')
-sys.path.append('../queue')
-from queue import Queue
-from stack import Stack
+# sys.path.append('../stack')
+# sys.path.append('../queue')
+sys.path.append('../singly_linked_list')
+from singly_linked_list import LinkedList
+# from queue import Queue
+# from stack import Stack
+
+class Queue:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
+
+    def __len__(self):
+        return self.size
+
+    def enqueue(self, value):
+        self.storage.add_to_tail(value)
+        self.size += 1
+
+    def dequeue(self):
+        if self.size ==0:
+            return None
+        else:
+            self.size -= 1
+            return self.storage.remove_head()
+
+class Stack:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
+
+    def __len__(self):
+        return self.size
+
+    def push(self, value):
+        self.storage.add_to_tail(value)
+        self.size += 1
+
+    def pop(self):
+        if self.size == 0:
+            return None
+        else:
+            self.size -= 1
+            return self.storage.remove_tail()
+
+
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -87,13 +129,34 @@ class BSTNode:
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
-        pass
+        bft = Queue()
+        node = self
+
+        while node:
+            if node is not None:
+                print(node.value)  # prints 1, 8
+            if node.left:
+                bft.enqueue(node.left)
+            if node.right:
+                bft.enqueue(node.right)
+            node = bft.dequeue()
+            
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
         dft = Stack()
-        dft.push(self)
+        node = self
+
+        while node:
+            if node is not None:
+                print(node.value)  # prints 1, 8
+            if node.left:
+                dft.push(node.left)
+            if node.right:
+                dft.push(node.right)
+            node = dft.pop()
+
 
 
     # Stretch Goals -------------------------
